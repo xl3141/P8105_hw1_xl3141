@@ -1,7 +1,7 @@
 hw1
 ================
 Xinyuan Liu
-2021/9/21
+2021/9/22
 
 # Problem 1
 
@@ -25,18 +25,18 @@ problem1_df <- tibble(
   sample = rnorm(10), ## random sample of size 10 from a standard Normal distribution
   gr_than_0 = sample > 0, ## indicating whether elements of the sample are greater than 0
   vec_char = c("X", "i", "n", "y", "u", "a", "n", "L", "i", "u"), ##character vector with length = 10
-  vec_factor = c("high", "high", "high", "medium", "medium", "medium", "low", "low", "low", "low") ## factor vector of length 10 with 3 levels 
+  vec_factor = c("high", "high", "high", "middle", "middle", "middle", "low", "low", "low", "middle")  ## factor vector of length 10 with 3 levels 
 )
 mean(pull(problem1_df, var = 1))
 ```
 
-    ## [1] -0.2996863
+    ## [1] -0.09803883
 
 ``` r
 mean(pull(problem1_df, var = 2))
 ```
 
-    ## [1] 0.3
+    ## [1] 0.2
 
 ``` r
 mean(pull(problem1_df, var = 3))
@@ -57,19 +57,27 @@ mean(pull(problem1_df, var = 4))
     ## [1] NA
 
 ``` r
+## These try to compute the mean of numbers in each column
+```
+
+We could only get the mean for the sample because it is the only numeric
+variable.
+
+``` r
 as.numeric(pull(problem1_df, var = 2))
 as.numeric(pull(problem1_df, var = 3))
 as.numeric(pull(problem1_df, var = 4))
+## These try to convert the non-numeric variables into numeric ones
 ```
 
-In this case, the logical vector is able to become numeric
+In this case, the logical vector is able to become numeric but the
+character vector and factor vector are not able to be transferred into
+numerical variable
 
 # Problem 2
 
 ``` r
 data("penguins", package = "palmerpenguins")
-penguins$flipper_length_mm[is.na(penguins$flipper_length_mm)] <- 0
-penguins$bill_length_mm[is.na(penguins$bill_length_mm)] <- 0
 ```
 
 The dataset “penguins” has different columns whose names are : species,
@@ -78,16 +86,18 @@ body\_mass\_g, sex, year.
 
 It has 344 rows and 8 columns.
 
-The mean flipper length is 199.747093.
+The mean flipper length is 200.9152047 mm.
 
 ``` r
 pg_df <- tibble(
-  x = penguins$bill_length_mm,
-  y = penguins$flipper_length_mm
+  x = penguins$bill_length_mm, ## x is the bill length in mm
+  y = penguins$flipper_length_mm ## y is the flipper length in mm
 )
 
-ggplot(pg_df, aes(x = x, y = y, color = penguins$species)) + geom_point()
+ggplot(pg_df, aes(x = x, y = y, color = penguins$species)) + geom_point() ## This gives a scatterplot where x shows penguins' bill length and y shows penguins' flipper length, and colors differentiates different species of penguins 
 ```
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
 
 ![](hw1_files/figure-gfm/penguins_scatterplot-1.png)<!-- -->
 
@@ -96,3 +106,5 @@ ggsave("scatter_plot.pdf")
 ```
 
     ## Saving 7 x 5 in image
+
+    ## Warning: Removed 2 rows containing missing values (geom_point).
