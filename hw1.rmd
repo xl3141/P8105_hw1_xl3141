@@ -1,0 +1,56 @@
+---
+title: "hw1"
+author: "Xinyuan Liu"
+date: "2021/9/21"
+output: github_document
+
+---
+
+# Problem 1
+
+```{r Problem 1}
+library(tidyverse)
+problem1_df <- tibble(
+  sample = rnorm(10), ## random sample of size 10 from a standard Normal distribution
+  gr_than_0 = sample > 0, ## indicating whether elements of the sample are greater than 0
+  vec_char = c("X", "i", "n", "y", "u", "a", "n", "L", "i", "u"), ##character vector with length = 10
+  vec_factor = c("high", "high", "high", "medium", "medium", "medium", "low", "low", "low", "low") ## factor vector of length 10 with 3 levels 
+)
+mean(pull(problem1_df, var = 1))
+mean(pull(problem1_df, var = 2))
+mean(pull(problem1_df, var = 3))
+mean(pull(problem1_df, var = 4))
+```
+
+```{r as.numeric, echo = TRUE, eval = FALSE}
+as.numeric(pull(problem1_df, var = 2))
+as.numeric(pull(problem1_df, var = 3))
+as.numeric(pull(problem1_df, var = 4))
+```
+
+In this case, the logical vector is able to become numeric 
+
+# Problem 2
+
+```{r}
+data("penguins", package = "palmerpenguins")
+penguins$flipper_length_mm[is.na(penguins$flipper_length_mm)] <- 0
+penguins$bill_length_mm[is.na(penguins$bill_length_mm)] <- 0
+```
+
+The dataset "penguins" has different columns whose names are : `r names(penguins)`. 
+
+It has `r nrow(penguins)` rows and `r ncol(penguins)` columns.
+
+The mean flipper length is `r mean(penguins$flipper_length_mm)`.
+
+```{r penguins_scatterplot }
+pg_df <- tibble(
+  x = penguins$bill_length_mm,
+  y = penguins$flipper_length_mm
+)
+
+ggplot(pg_df, aes(x = x, y = y, color = penguins$species)) + geom_point()
+
+ggsave("scatter_plot.pdf")
+```
