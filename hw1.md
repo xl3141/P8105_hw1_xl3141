@@ -16,13 +16,13 @@ problem1_df <- tibble(
 mean(pull(problem1_df, var = 1))
 ```
 
-    ## [1] 0.01726591
+    ## [1] -0.110806
 
 ``` r
 mean(pull(problem1_df, var = 2))
 ```
 
-    ## [1] 0.7
+    ## [1] 0.6
 
 ``` r
 mean(pull(problem1_df, var = 3))
@@ -80,7 +80,7 @@ pg_df <- tibble(
   y = penguins$flipper_length_mm ## y is the flipper length in mm
 ) ## This is the data frame of bill and flipper variable in the penguin dataset
 
-ggplot(pg_df, aes(x = x, y = y, color = penguins$species)) + geom_point() ## This gives a scatterplot where x shows penguins' bill length and y shows penguins' flipper length, and colors differentiates different species of penguins 
+ggplot(pg_df, aes(x = x, y = y, color = penguins$species)) + geom_point() + xlab("bill_length in mm") + ylab("flipper length in mm")
 ```
 
     ## Warning: Removed 2 rows containing missing values (geom_point).
@@ -88,6 +88,8 @@ ggplot(pg_df, aes(x = x, y = y, color = penguins$species)) + geom_point() ## Thi
 ![](hw1_files/figure-gfm/penguins_scatterplot-1.png)<!-- -->
 
 ``` r
+  ## This gives a scatterplot where x shows penguins' bill length and y shows penguins' flipper length, and colors differentiates different species of penguins 
+
 ggsave("scatter_plot.pdf")
 ```
 
