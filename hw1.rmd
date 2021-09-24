@@ -8,7 +8,7 @@ output: github_document
 
 # Problem 1
 
-```{r Problem 1}
+```{r Problem 1, message=FALSE}
 library(tidyverse)
 problem1_df <- tibble(
   sample = rnorm(10), ## random sample of size 10 from a standard Normal distribution
@@ -46,11 +46,11 @@ It has `r nrow(penguins)` rows and `r ncol(penguins)` columns.
 
 The mean flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)` mm.
 
-```{r penguins_scatterplot }
+```{r penguins_scatterplot, message=FALSE}
 pg_df <- tibble(
   x = penguins$bill_length_mm, ## x is the bill length in mm
   y = penguins$flipper_length_mm ## y is the flipper length in mm
-)
+) ## This is the data frame of bill and flipper variable in the penguin dataset
 
 ggplot(pg_df, aes(x = x, y = y, color = penguins$species)) + geom_point() ## This gives a scatterplot where x shows penguins' bill length and y shows penguins' flipper length, and colors differentiates different species of penguins 
 
